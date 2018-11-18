@@ -5,6 +5,7 @@ using namespace std;
 int main(){
   int tail = 0;
   int n;
+  cin >> n;
   vector<int> in(n);
   for(int i = 0;i < n;i++){
     cin >> in[i];
