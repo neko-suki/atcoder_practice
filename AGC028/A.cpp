@@ -69,15 +69,14 @@ int main(){
   cin >> n >> m;
   cin >> s >> t;
   long long l = lcm(max(n,m), min(n, m));
-  set<pair<long long ,char> > S;
-  for(int i = 0;i < n;i++){
-    S.insert({i * l/n, s[i]});
+  map<long long, char> M;
+  for(long long i = 0;i < n;i++){
+    M[i * l/n] = s[i];
   }
 
   bool fg = true;
   for(int i = 0 ;i < m;i++){
-    if (S.count({i * l/m, t[i]}) != 0){
-      cout << i*l/m <<" " << t[i] << endl;
+    if (M.count(i * l/m) != 0 && M[i*l/m] != t[i]){
       fg = false;
     }
   }
