@@ -3,7 +3,7 @@
 using namespace std;
 
 int main(){
-  int head = 0, tail = 0;
+  int tail = 0;
   int n;
   vector<int> in(n);
   for(int i = 0;i < n;i++){
@@ -18,7 +18,7 @@ int main(){
       tail++;
     }
     now = now ^ in[i];
-    ans += head - tail + 1;
+    ans += i - tail + 1;
   }
 
   cout << ans << endl;
