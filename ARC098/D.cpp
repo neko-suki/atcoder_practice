@@ -11,7 +11,7 @@ int main(){
     cin >> in[i];
   }
 
-  int ans = 0;
+  long long ans = 0;
   int now = 0;
   for(int i = 0;i < n;i++){
     while(tail < i && (now & in[i]) != 0){
