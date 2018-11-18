@@ -70,13 +70,13 @@ int main(){
   cin >> s >> t;
   long long l = lcm(max(n,m), min(n, m));
   map<long long, char> M;
-  for(long long i = 0;i < n;i++){
-    M[i * l/n] = s[i];
+  for(long long s_i = 0;s_i < n;s_i++){
+    M[s_i * l/n] = s[s_i];
   }
 
   bool fg = true;
-  for(int i = 0 ;i < m;i++){
-    if (M.count(i * l/m) != 0 && M[i*l/m] != t[i]){
+  for(int t_i = 0 ;t_i < m;t_i++){
+    if (M.count(t_i * l/m) != 0 && M[t_i*l/m] != t[t_i]){
       fg = false;
     }
   }
