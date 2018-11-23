@@ -11,7 +11,7 @@ ll solve(int n, const vector<ll> & cost , const vector<ll> &dist ,
   for(int i = 0;i < n;i++){
     ret = max(ret, cost[i]);
     if (i + 1 != n){
-    ret = max(ret, cost[i] + dist[i] + rev_max_cost[i+1]);
+      ret = max(ret, cost[i] - dist[i] + rev_max_cost[i+1]);
     }
   }
   return ret;
@@ -21,14 +21,14 @@ ll solve(int n, const vector<ll> & cost , const vector<ll> &dist ,
 ll compute(int n, const ll c, const vector<ll> & dist, const vector<ll> & cal){
   // forward
   vector<ll> cost(n);
-  cost[0] = cal[0] - dist[0];
+  cost[0] = cal[0];
   for(int i = 1;i < n;i++){
-    cost[i] = cost[i-1] + cal[i] - dist[i-1];
+    cost[i] = cost[i-1] + cal[i] - dist[i];
   }
 
   // backward
   vector<ll> rev_cost(n);
-  rev_cost[n-1] = cal[n-1] - (c - dist[n-1]);
+  rev_cost[n-1] = cal[n-1];
   for(int i = n-2;i >= 0;i--){
     rev_cost[i] = rev_cost[i+1] + cal[i] - (c - dist[i]);
   }
@@ -36,9 +36,10 @@ ll compute(int n, const ll c, const vector<ll> & dist, const vector<ll> & cal){
   vector<ll> rev_max_cost(n);
   rev_max_cost[n-1] = c - dist[n-1];
   for(int i = n-2;i >= 0;i--){
-    rev_max_cost[n-1-i] = max(rev_max_cost[n-1-i + 1], rev_cost[i]);
+    rev_max_cost[i] = max(rev_max_cost[i + 1], rev_cost[i]);
   }
-  return solve(n, cost, dist, rev_max_cost);
+  ll ret = solve(n, cost, dist, rev_max_cost);
+  return ret;
 }
 
 int main(){
