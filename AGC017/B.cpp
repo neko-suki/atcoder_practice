@@ -8,7 +8,7 @@ string solve(int n, ll a, ll b, ll c, ll d){
     ll l = a + i * c - (n-i-1) * c;
     ll r = a + i * d - (n-i-1) * d;
     if (l > r)swap(l , r);
-    if (l <= b && r <= b)return "YES";
+    if (l <= b && b <= r)return "YES";
   }
   return "NO";
 }
