@@ -7,7 +7,7 @@ int main(){
   const int n = in.size();
   long long ans = 0;
   for(int i = 1; i <= n;i++){
-    if (in[i-1] == 'u'){
+    if (in[i-1] == 'U'){
       ans += (n-i) + 2 * (i-1);
     } else {
       ans += (n-i) * 2 + (i-1);
