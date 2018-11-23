@@ -9,6 +9,9 @@ public:
   DisjointSet(int size){
     rank.resize(size,0);
     p.resize(size,0);
+    for(int i =0;i < size;i++){
+      make_set(i);
+    }
   }
   void make_set(int x){
     p[x]=x;
@@ -50,7 +53,9 @@ int main(){
   }
   int ans = 0;
   for(int i = 0;i < n;i++){
-    if (dj.find_set(i) == dj.find_set(in[i]))ans++;
+    if (dj.find_set(i) == dj.find_set(in[i])){
+      ans++;
+    }
   }
   cout << ans << endl;
   return 0;
