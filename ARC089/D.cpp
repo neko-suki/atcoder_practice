@@ -10,20 +10,20 @@ int bin[N][N]={0};
 
 int get_sum(int y1, int x1, int y2, int x2, int sum[N][N]){
   int ret = sum[y2][x2];
-  if (y1 >= 0){
+  if (y1 > 0){
     ret -= sum[y1-1][x2];
   }
-  if (x1 >= 0){
+  if (x1 > 0){
     ret -= sum[y2][x1-1];
   }
-  if (y1 >= 0 && x1 >= 0){
+  if (y1 > 0 && x1 > 0){
     ret += sum[y1-1][x1-1];
   }
   return ret;
 }
 
 void compute_sum(int n, int in[N][N], int sum[N][N]){
-  fill(&in[0][0], &in[N-1][0], 0);
+  fill(&sum[0][0], &sum[N-1][0], 0);
   for(int i = 0;i < n;i++){
     for(int j=0;j < n;j++){
       int tmp = in[i][j];
@@ -80,7 +80,7 @@ int main(){
       bin[ty][tx]++;
     }
   }
-  cout <<"re" << endl;
+
   cout << solve(k, win, bin) << endl;;
   return 0;
 }
