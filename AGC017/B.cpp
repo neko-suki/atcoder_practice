@@ -5,8 +5,8 @@ typedef long long ll;
 
 string solve(int n, ll a, ll b, ll c, ll d){
   for(int i = 0;i < n-1;i++){
-    ll l = a + i * c - (n-i-1) * c;
-    ll r = a + i * d - (n-i-1) * d;
+    ll l = a + i * c - (n-i-1) * d; // minimum possible
+    ll r = a + i * d - (n-i-1) * c; // maximum possible
     if (l > r)swap(l , r);
     if (l <= b && b <= r)return "YES";
   }
