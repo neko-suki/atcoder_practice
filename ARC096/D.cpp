@@ -11,7 +11,6 @@ ll solve(int n, const vector<ll> & cost , const vector<ll> &dist ,
   for(int i = 0;i < n;i++){
     ret = max(ret, cost[i]);
     if (i + 1 != n){
-      cout << i <<" " << cost[i] <<" " << dist[i] <<" " << rev_max_cost[i+1] << endl;
       ret = max(ret, cost[i] - dist[i] + rev_max_cost[i+1]);
     }
   }
@@ -32,7 +31,7 @@ ll compute(int n, const ll c, const vector<ll> & dist, const vector<ll> & cal){
 
   // backward
   vector<ll> rev_cost(n);
-  cal_sum = 0;
+  cal_sum = cal[n-1];
   rev_cost[n-1] = cal[n-1] - (c-dist[n-1]);
   for(int i = n-2;i >= 0;i--){
     rev_cost[i] = cal_sum + cal[i] - (c - dist[i]);
