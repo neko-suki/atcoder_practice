@@ -23,7 +23,6 @@ int get_sum(int y1, int x1, int y2, int x2, int sum[N][N]){
 }
 
 void compute_sum(int n, int in[N][N], int sum[N][N]){
-  fill(&sum[0][0], &sum[N-1][0], 0);
   for(int i = 0;i < n;i++){
     for(int j=0;j < n;j++){
       int tmp = in[i][j];
@@ -48,8 +47,12 @@ int solve(const int k, int win[N][N], int bin[N][N]){
   int ret = 0;
   for(int i = 0;i < k;i++){
     for(int j = 0;j < k;j++){
-      int tmp1 = get_sum(i, j, i+k-1, j+k-1 , wsum) + get_sum(i+k, j+k, i+k+k-1, j+k+k-1, wsum)
-	+ get_sum(i, j+k, i+k-1, j+k+k-1, bsum) + get_sum(i+k, j, i+k+k-1, j+k-1, bsum);
+      int tmp1 =
+	get_sum(    i,   j,   i+k-1,   j+k-1, wsum)
+	+ get_sum(i+k, j+k, i+k+k-1, j+k+k-1, wsum)
+	+ get_sum(  i, j+k,   i+k-1, j+k+k-1, bsum)
+	+ get_sum(i+k,   j, i+k+k-1,   j+k-1, bsum);
+
       int tmp2 = get_sum(i, j, i+k-1, j+k-1 , bsum) + get_sum(i+k, j+k, i+k+k-1, j+k+k-1, bsum)
 	+ get_sum(i, j+k, i+k-1, j+k+k-1, wsum) + get_sum(i+k, j, i+k+k-1, j+k-1, wsum);
       ret = max({ret, tmp1, tmp2});
@@ -70,17 +73,16 @@ int main(){
     
     if (color == 'W'){
       win[y][x]++;
-      int ty = y + 2 * k;
-      int tx = x + 2 * k;
-      win[ty][tx]++;
+      win[y+2*k][x]++;
+      win[y][x+2*k]++;
+      win[y+2*k][x+2*k]++;
     } else if (color == 'B'){
       bin[y][x]++;
-      int ty = y + 2 * k;
-      int tx = x + 2 * k;
-      bin[ty][tx]++;
+      bin[y+2*k][x]++;
+      bin[y][x+2*k]++;
+      bin[y+2*k][x+2*k]++;
     }
   }
-
   cout << solve(k, win, bin) << endl;;
   return 0;
 }
