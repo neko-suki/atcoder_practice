@@ -7,17 +7,16 @@ typedef long long ll;
 
 bool solve(const int n, const vector<int> & in){
   ll sum = accumulate(in.begin(), in.end(), 0LL);
-  if (sum % (
-	     (static_cast<long long>(n) * static_cast<long long>(n+1))/2
-	     ) != 0
-      ){
+
+  if (sum % ((static_cast<long long>(n) * static_cast<long long>(n+1))/2)
+	      != 0){
     return false;
   }
   ll k = sum / ((static_cast<long long>(n) * static_cast<long long>(n+1))/2);
 
   ll ops = 0;
   for(int i = 0;i < n;i++){
-    ll tmp = in[i+1] - in[i] - k;
+    ll tmp = in[(i+1)%n] - in[i] - k;
     if (tmp <= 0 &&  - tmp % n == 0){
       ops += -tmp / n;
     }else return false;
