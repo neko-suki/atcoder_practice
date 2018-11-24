@@ -6,7 +6,6 @@ using namespace std;
 typedef long long ll;
 
 ll solve(const int n, const vector<int> & in){
-  int l = n, r = 2 * n-1;
   ll lsum = 0, rsum = 0;
   priority_queue<int, vector<int>, greater<int> > lq;
   priority_queue<int> rq;
@@ -19,30 +18,35 @@ ll solve(const int n, const vector<int> & in){
     rq.push(in[i]);
     rsum += in[i];
   }
+  ll ans = lsum - rsum;
+  vector<ll> forward_sum(3*n, 0);
+  vector<ll> backward_sum(3*n, 0);
 
-  while(l <= r){
-    int ltop = lq.top();
-    int rtop = rq.top();
-    ll diff = lsum - rsum;
-    ll newl = lsum - ltop + in[l];
-    int newr = rsum - rtop + in[r];
-
-    if ( newl - rsum >= lsum - newr && newl - rsum > diff){ // take in[l] into left
+  forward_sum[n-1] = lsum;
+  for(int i = n;i < 2*n;i++){
+    if (lq.top() < in[i]){
+      lsum = lsum - lq.top() + in[i];
       lq.pop();
-      lq.push(in[l]);
-      lsum += in[l] - ltop;
-      l++;
-    } else if (newl - rsum <= lsum - newr && diff < lsum - newr){
-      rq.pop();
-      rq.push(in[r]);
-      rsum += in[r] - rtop;
-      r--;
-    } else {
-      if (in[l] < in[r])r--;
-      else if (in[l] > in[r])l++;
+      lq.push(in[i]);
     }
+    forward_sum[i] = lsum;
   }
-  return lsum - rsum;
+
+  backward_sum[2*n] = rsum;
+  for(int i = 2*n-1;i >= n;i--){
+    if (rq.top() > in[i]){
+      rsum = rsum - rq.top() + in[i];
+      rq.pop();
+      rq.push(in[i]);
+    }
+    backward_sum[i] = rsum;
+  }
+
+
+  for(int i = n-1;i < 2*n;i++){
+    ans = max(ans, forward_sum[i] - backward_sum[i+1]);
+  }
+  return ans;
 }
 
 
