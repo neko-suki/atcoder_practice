@@ -6,7 +6,7 @@ using namespace std;
 typedef long long ll;
 
 ll solve(const int n, const vector<int> & in){
-  int l = n, r = 2 * n;
+  int l = n, r = 2 * n-1;
   ll lsum = 0, rsum = 0;
   priority_queue<int, vector<int>, greater<int> > lq;
   priority_queue<int> rq;
@@ -24,13 +24,15 @@ ll solve(const int n, const vector<int> & in){
     int ltop = lq.top();
     int rtop = rq.top();
 
-    if (-ltop + in[l] > -rtop + in[r]){
+    if (-ltop + in[l] > - (-rtop + in[r]) ){
       lq.pop();
       lq.push(in[l]);
+      lsum += in[l] - ltop;
       l++;
     } else {
       rq.pop();
       rq.push(in[r]);
+      rsum += in[r] - rtop;
       r--;
     }
   }
@@ -42,7 +44,7 @@ int main(){
   int n;
   cin >> n;
   vector<int> in(3*n);
-  for(int i = 0;i < n;i++){
+  for(int i = 0;i <3* n;i++){
     cin >> in[i];
   }
   cout << solve(n, in) << endl;
