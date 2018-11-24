@@ -14,13 +14,15 @@ ll solve(int n){
   }
   for(int i = 0;i < n;i++){
     for(int j = i+1;j < n;j++){
+      int decrease = 0;
       for(int k = 0;k < n;k++){
 	if (k == i || k == j)continue;
 	if (edge[i][j] > edge[i][k] + edge[k][j])return -1;
 	if (edge[i][j] == edge[i][k] + edge[k][j]){
-	  sum -= edge[i][j];
+	  decrease = edge[i][j];
 	}
       }
+      sum -= decrease;
     }
   }
   return sum;
