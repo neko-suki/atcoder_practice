@@ -49,7 +49,7 @@ void solve(const int w_cnt, const int b_cnt){
 
 
   {
-    int w_tmp = w_cnt;
+    int w_tmp = w_cnt-1;
     int nowy = 0;
     int nowx = 0;
     while(w_tmp){
@@ -63,7 +63,7 @@ void solve(const int w_cnt, const int b_cnt){
     }
   }
   {
-    int b_tmp = b_cnt;
+    int b_tmp = b_cnt-1;
     int nowy = n/2+1;
     int nowx = 0;
     while(b_tmp){
@@ -77,9 +77,18 @@ void solve(const int w_cnt, const int b_cnt){
     }
   }
 
+  /*
   bool isok = check(n, w_cnt, b_cnt);
   cout << isok << endl;
+  */
 
+  cout << n <<" " << n << endl;
+  for(int i = 0;i < n;i++){
+    for(int j = 0;j < n;j++){
+      cout << result[i][j];
+    }
+    cout << endl;
+  }
 }
 
 
