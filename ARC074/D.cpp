@@ -23,17 +23,23 @@ ll solve(const int n, const vector<int> & in){
   while(l <= r){
     int ltop = lq.top();
     int rtop = rq.top();
+    ll diff = lsum - rsum;
+    ll newl = lsum - ltop + in[l];
+    int newr = rsum - rtop + in[r];
 
-    if (-ltop + in[l] > - (-rtop + in[r]) ){
+    if ( newl - rsum >= lsum - newr && newl - rsum > diff){ // take in[l] into left
       lq.pop();
       lq.push(in[l]);
       lsum += in[l] - ltop;
       l++;
-    } else {
+    } else if (newl - rsum <= lsum - newr && diff < lsum - newr){
       rq.pop();
       rq.push(in[r]);
       rsum += in[r] - rtop;
       r--;
+    } else {
+      if (in[l] < in[r])r--;
+      else if (in[l] > in[r])l++;
     }
   }
   return lsum - rsum;
