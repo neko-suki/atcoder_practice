@@ -18,6 +18,7 @@ int solve(int n, vector<int> &in){
       num++;
     }
   }
+  cout << num << " " << ret << endl;
   ret -= num;
   if (num%2 == 1)ret--; 
   return ret;
