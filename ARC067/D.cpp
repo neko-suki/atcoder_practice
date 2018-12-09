@@ -45,19 +45,19 @@ public:
 int main(){
   int n, k, l;
   
-  cin >> n;
+  cin >> n >> k >> l;
   DisjointSet road(n), train(n);
-  for(int i = 0;i < n;i++){
+  for(int i = 0;i < k;i++){
     int a, b;
     cin >> a >> b;
     a--;b--;
     road.merge(a, b);
   }
 
-  for(int i = 0;i < n;i++){
+  for(int i = 0;i < l;i++){
     int a,b;
     cin >> a>> b;
-
+    a--;b--;
     train.merge(a,b);
   }
 
