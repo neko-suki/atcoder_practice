@@ -64,7 +64,7 @@ int main(){
   map<int, vector<int> > M_road;
   for(int i = 0;i < n;i++){
     int cur = road.find_set(i);
-    M_road[cur].emplace_back(cur);
+    M_road[cur].emplace_back(i);
   }
 
   vector<int> ans(n, 0);
