@@ -19,8 +19,8 @@ void countUp(int a, int b,
 	     vector<long long> &cnt){
   for(int i = 0;i < 9;i++){
     int base_a = a - i/3, base_b = b - i%3;
-    if (base_a < 0 || base_b < 0 ||
-	base_a + 2 >= H || base_b + 2 >= W){
+    if (base_a < 1 || base_b < 1 ||
+	base_a + 2 > H || base_b + 2 > W){
       continue;
     }
 
