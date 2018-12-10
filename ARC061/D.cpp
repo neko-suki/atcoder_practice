@@ -6,7 +6,7 @@ using namespace std;
 bool isTopLeft(int a, int b, int now, set<pair<int,int> > & S){
   for(int i = 0;i < now;i++){
     int new_a = a + now / 3, new_b = b + now % 3;
-    if (S.count({a, b}) != 0){
+    if (S.count({new_a, new_b}) != 0){
       return false;
     }
   }
@@ -18,8 +18,7 @@ void countUp(int a, int b,
 	     set<pair<int,int> >& S,
 	     vector<long long> &cnt){
   for(int i = 0;i < 9;i++){
-    int dec_a = i / 3, dec_b = i % 3;
-    int base_a = a - dec_a, base_b = b - dec_b;
+    int base_a = a - i/3, base_b = b - i%3;
     if (base_a < 0 || base_b < 0 ||
 	base_a + 2 >= H || base_b + 2 >= W){
       continue;
@@ -28,7 +27,7 @@ void countUp(int a, int b,
     if (isTopLeft(base_a, base_b, i, S)){
       int tmp = 1;
       for(int j = i+1;j < 9;j++){
-	int new_a = base_a +  j / 3;
+	int new_a = base_a + j / 3;
 	int new_b = base_b + j % 3;
 	if (S.count({new_a, new_b}) != 0){
 	  tmp++;
