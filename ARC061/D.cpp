@@ -5,7 +5,7 @@ using namespace std;
 
 bool isTopLeft(int a, int b, int now, set<pair<int,int> > & S){
   for(int i = 0;i < now;i++){
-    int new_a = a + now / 3, new_b = b + now % 3;
+    int new_a = a + i / 3, new_b = b + i % 3;
     if (S.count({new_a, new_b}) != 0){
       return false;
     }
