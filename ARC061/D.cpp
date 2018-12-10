@@ -21,7 +21,7 @@ void countUp(int a, int b,
     int dec_a = i / 3, dec_b = i % 3;
     int base_a = a - dec_a, base_b = b - dec_b;
     if (base_a < 0 || base_b < 0 ||
-	base_a + 3 >= H || base_b + 3 >= W){
+	base_a + 2 >= H || base_b + 2 >= W){
       continue;
     }
 
@@ -50,6 +50,7 @@ int main(){
   vector<pair<int,int> > in(n);
   for(int i  = 0;i < n;i++){
     cin >> in[i].first >> in[i].second;
+    S.insert({in[i].first, in[i].second});
   }
 
   vector<long long> ans(10);
