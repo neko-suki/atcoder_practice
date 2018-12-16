@@ -10,23 +10,22 @@ typedef struct{
 }Number ;
 
 void dump(stack<Number> S){
-  return;
   stack<Number> tmp;
   while(!S.empty()){
     tmp.push(S.top());
     S.pop();
   }
-
-  //cout <<"dump: " ;
+  
+  cout <<"dump: " ;
   while(!tmp.empty()){
     Number top = tmp.top(); tmp.pop();
     assert(top.len > 0);
-    //for(int i = 0;i < top.len ;i++){
-      //cout << (char)('a' + top.val-1);
-    //}
-    //cout <<" ";
+    for(int i = 0;i < top.len ;i++){
+      cout << (char)('a' + top.val);
+    }
+    cout <<" ";
   }
-  //cout << endl;
+  cout << endl;
 }
 
 void decrease(stack<Number>  & S, int current_length, int target_length){
@@ -43,75 +42,63 @@ void decrease(stack<Number>  & S, int current_length, int target_length){
   }
 }
 
-int add(stack<Number> & S, int val, const int length){
-  int new_val = val;
+bool add(stack<Number> & S, const int length, const int lim){
   stack<Number> tmp_stack;
   while(!S.empty()){
     Number top = S.top();
     S.pop();
-    if (top.val != val){
+    if (top.val != lim){
       Number a = {top.len-1, top.val};
       Number b = {1        , top.val+1};
       if (a.len != 0){
 	S.push(a);
       }
       S.push(b);
+      while(!tmp_stack.empty()){
+	Number tmp = tmp_stack.top();
+	tmp_stack.pop();
+	tmp.val = 1;
+	S.push(tmp);
+      }
+      return true;
       break;
-    } else if (top.val == val){
-      Number a = {top.len, 1};
+    } else if (top.val == lim){
+      Number a = {top.len, top.val};
       tmp_stack.push(a);
     }
   }
 
   if (S.empty()){
-    new_val = new_val + 1;
-    while(!tmp_stack.empty()){
-      Number top = tmp_stack.top();
-      tmp_stack.pop();
-      S.push(top);
-    }
-
-    Number top = S.top();
-    S.pop();
-    Number a = {top.len-1, top.val};
-    Number b = {1,new_val};
-    if (a.len != 0){
-      S.push(a);
-    }
-    S.push(b);
-  } else {
-    while(!tmp_stack.empty()){
-      S.push(tmp_stack.top());
-      tmp_stack.pop();
-    }
+    return false;
   }
-  return new_val;
+  return true;
 }
 
-int solve(vector<int> & in){
+bool solve(const int lim, vector<int> & in){
   stack<Number> S;
   const int n = in.size();
   int val = 1;
   int length = in[0];
-  S.push((Number){in[0], val});
+  S.push((Number){in[0], 1});
   for(int i = 1;i < n;i++){
+    bool fg = true;
     //dump(S);
     if (length < in[i]){
       //cout <<"push" << endl;
       S.push((Number){in[i] - length, 1});
     } else if (length == in[i]){
       //cout << "add" << endl;
-      val = max(val, add(S, val, in[i]));
+      fg = add(S, in[i], lim);
     } else if (in[i] < length){
       //cout <<"decrease add " << endl;
       decrease(S, length, in[i]);
       //dump(S);
-      val = max(val, add(S, val, in[i]));
+      fg = add(S, in[i], lim);
     }
+    if (!fg)return false;
     length = in[i];
-    //dump(S);
   }
-  return val;
+  return true;
 }
 
 int main(){
@@ -121,6 +108,16 @@ int main(){
   for(int i = 0;i < n;i++){
     cin >> in[i];
   }
-  cout << solve(in) << endl;
+  int l = 0, r = n;
+  while(l < r){
+    int mid = (l+r)/2;
+    bool can_solve = solve(mid, in);
+    if (can_solve){
+      r = mid;
+    } else {
+      l = mid+1;
+    }
+  }
+  cout << l << endl;
   return 0;
 }
