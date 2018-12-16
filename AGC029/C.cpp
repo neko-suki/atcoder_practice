@@ -21,7 +21,7 @@ void dump(stack<Number> S){
     Number top = tmp.top(); tmp.pop();
     assert(top.len > 0);
     for(int i = 0;i < top.len ;i++){
-      cout << (char)('a' + top.val);
+      cout << (char)('a' + top.val -1);
     }
     cout <<" ";
   }
@@ -35,7 +35,6 @@ void decrease(stack<Number>  & S, int current_length, int target_length){
       S.pop();
       current_length -= top.len;
     } else if (current_length - top.len < target_length){
-      //S.top().len -= current_length - target_length;
       S.top().len = target_length - (current_length - S.top().len);
       break;
     }
@@ -61,7 +60,6 @@ bool add(stack<Number> & S, const int length, const int lim){
 	S.push(tmp);
       }
       return true;
-      break;
     } else if (top.val == lim){
       Number a = {top.len, top.val};
       tmp_stack.push(a);
@@ -77,7 +75,6 @@ bool add(stack<Number> & S, const int length, const int lim){
 bool solve(const int lim, vector<int> & in){
   stack<Number> S;
   const int n = in.size();
-  int val = 1;
   int length = in[0];
   S.push((Number){in[0], 1});
   for(int i = 1;i < n;i++){
@@ -86,8 +83,8 @@ bool solve(const int lim, vector<int> & in){
     if (length < in[i]){
       //cout <<"push" << endl;
       S.push((Number){in[i] - length, 1});
-    } else if (length == in[i]){
-      //cout << "add" << endl;
+    } else if (length <= in[i]){
+
       fg = add(S, in[i], lim);
     } else if (in[i] < length){
       //cout <<"decrease add " << endl;
@@ -108,7 +105,7 @@ int main(){
   for(int i = 0;i < n;i++){
     cin >> in[i];
   }
-  int l = 0, r = n;
+  int l = 1, r = n;
   while(l < r){
     int mid = (l+r)/2;
     bool can_solve = solve(mid, in);
