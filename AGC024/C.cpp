@@ -17,7 +17,7 @@ long long solve(const int n, vector<int> & in){
   while(l < in.size()){
     int r = l;
     for(;r < in.size();r++){
-      if (in[l] + r - l != in[r]);
+      if (in[l] + r - l != in[r])break;
     }
     ans += in[r-1];
     l = r;
