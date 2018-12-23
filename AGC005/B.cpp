@@ -60,15 +60,20 @@ ll mypow(ll n,ll p){
 ll solve(int n, vector<ll>&in, int x){
   ll ret = 0;
   vector<ll> dp1(n), dp2(n);// dp1 include 0 as capture, 
+  rep(i,n){
+    dp1[i] = in[i];
+    dp2[i] = in[i];
+  }
+
   dp1[0] = in[0];
   REP(i, 1, n){
-    dp1[i] = min(in[i], dp1[i-1] + x);
+    dp1[i] = min(dp1[i], dp1[i-1] + x);
   }
   dp2[1] = x;
   REP(i, 2, n){
-    dp2[i] = min(in[i], dp2[i-1] + x);
+    dp2[i] = min(dp2[i], dp2[i-1] + x);
   }
-  dp2[0] = min(in[0], dp2[n-1] + x);
+  dp2[0] = min(dp2[0], dp2[n-1] + x);
 
   ll sum = 0;
   rep(i,n){
