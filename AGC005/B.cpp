@@ -60,7 +60,7 @@ ll mypow(ll n,ll p){
 const int N = 2000;
 int table[N][N];
 
-ll solve(int n, vector<int>&in, int x){
+ll solve(int n, vector<int>&in, ll x){
   rep(i,n){
     rep(j,n){
       table[i][j] = in[(i-j+n)%n];
@@ -82,7 +82,8 @@ ll solve(int n, vector<int>&in, int x){
 }
  
 int main(){
-  int n, x;
+  int n;
+  ll x;
   cin >> n >> x;
   vector<int> in(n);
   rep(i,n)cin>>in[i];
