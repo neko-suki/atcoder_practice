@@ -75,11 +75,9 @@ ll solve(int n, vector<ll>&in, int x){
   }
   dp2[0] = min(dp2[0], dp2[n-1] + x);
 
-  ll sum = 0;
   rep(i,n){
-    sum += min(dp1[i], dp2[i]);
+    ret += min(dp1[i], dp2[i]);
   }
-
   return ret;
 }
  
