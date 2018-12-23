@@ -57,25 +57,26 @@ ll mypow(ll n,ll p){
   return ret;
 }
 
-ll solve(int n, vector<ll>&in, int x){
-  ll ret = 0;
-  vector<ll> dp1(n), dp2(n);// dp1 include 0 as capture, 
+const int N = 2000;
+int table[N][N];
+
+ll solve(int n, vector<int>&in, int x){
   rep(i,n){
-    dp1[i] = in[i];
-    dp2[i] = in[i];
+    rep(j,n){
+      table[i][j] = in[(i-j+n)%n];
+    }
+    REP(j,1,n){
+      table[i][j] = min(table[i][j], table[i][j-1]);
+    }
   }
 
-  dp1[0] = in[0];
-  REP(i, 1, n){
-    dp1[i] = min(dp1[i], dp1[i-1] + x);
-  }
-  REP(i, 2, n){
-    dp2[i] = min(dp2[i], dp2[i-1] + x);
-  }
-  dp2[0] = min(dp2[0], dp2[n-1] + x);
-
-  rep(i,n){
-    ret += min(dp1[i], dp2[i]);
+  ll ret = accumulate(begin(in), end(in), 0LL);
+  rep(j,n){
+    ll tmp = j * x;
+    rep(i,n){
+      tmp += table[i][j];
+    }
+    ret = min(ret, tmp);
   }
   return ret;
 }
@@ -83,7 +84,7 @@ ll solve(int n, vector<ll>&in, int x){
 int main(){
   int n, x;
   cin >> n >> x;
-  vector<ll> in(n);
+  vector<int> in(n);
   rep(i,n)cin>>in[i];
   cout << solve(n, in, x) << endl;
   return 0;
